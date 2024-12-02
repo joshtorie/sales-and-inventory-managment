@@ -20,18 +20,11 @@ export const CreateOrderModal: React.FC<CreateOrderModalProps> = ({
 
   // Reset form when modal opens
   useEffect(() => {
-    if (isOpen && products.length > 0) {
-      // Initialize with one empty item if there are products
-      setOrderItems([{
-        productId: products[0].id,
-        quantity: 1,
-        price: products[0].salesPrice
-      }]);
-    } else {
-      setOrderItems([]);
+    if (isOpen) {
+      setOrderItems([]); // Ensure orderItems is empty when the modal opens
+      setStoreName('');
     }
-    setStoreName('');
-  }, [isOpen, products]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
