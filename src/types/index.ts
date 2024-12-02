@@ -30,3 +30,11 @@ export interface InventoryLog {
   price: number;
   action: 'add' | 'remove';
 }
+
+export interface Customer {
+  id: string;
+  name: string;
+  email?: string;
+  orders: SalesOrder[];
+  createdAt: string;
+}

@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Header } from './components/Header';
-import { ProductList } from './components/ProductList';
+import { ProductList } from './components/ProductList'
 import { AddProductModal } from './components/AddProductModal';
 import { CreateOrderModal } from './components/CreateOrderModal';
 import { SalesHistory } from './components/SalesHistory';
 import { InventoryHistory } from './components/InventoryHistory';
-import { Dashboard } from './components/Dashboard';
-import { Customers } from './components/Customers';
 import { storage } from './utils/storage';
 import { downloadCSV } from './utils/csv';
-import { Product, SalesOrder, InventoryLog, Customer } from './types';
+import { Product, SalesOrder, InventoryLog } from './types';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [sales, setSales] = useState<SalesOrder[]>([]);
   const [inventoryLogs, setInventoryLogs] = useState<InventoryLog[]>([]);
-  const [customers, setCustomers] = useState<Customer[]>([]);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showCreateOrder, setShowCreateOrder] = useState(false);
-  const [currentView, setCurrentView] = useState<'dashboard' | 'inventory' | 'sales' | 'inventory-history' | 'customers'>('dashboard');
+  const [currentView, setCurrentView] = useState<'inventory' | 'sales' | 'inventory-history'>('inventory');
 
   useEffect(() => {
     setProducts(storage.getProducts());
     setSales(storage.getSales());
     setInventoryLogs(storage.getInventoryLog());
-    setCustomers(storage.getCustomers() || []);
   }, []);
 
   const addProduct = (name: string, price: number, quantity: number) => {
@@ -174,33 +170,17 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
     downloadCSV(inventoryLogs, 'inventory-history');
   };
 
-  const handleCustomerClick = (customerId: string) => {
-    setCurrentView('customers');
-  };
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Header
         onCreateOrder={() => setShowCreateOrder(true)}
         onAddProduct={() => setShowAddProduct(true)}
-        onViewDashboard={() => setCurrentView('dashboard')}
         onViewSales={() => setCurrentView('sales')}
         onViewInventoryHistory={() => setCurrentView('inventory-history')}
-        onViewCustomers={() => setCurrentView('customers')}
         onExportData={exportData}
       />
       
       <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 max-w-full overflow-x-auto">
-        {currentView === 'dashboard' && (
-          <Dashboard
-            recentSales={sales.slice(-3)}
-            latestProducts={products.slice(-3)}
-            recentInventory={inventoryLogs.slice(-3)}
-            recentCustomers={customers.slice(-3)}
-            onCustomerClick={handleCustomerClick}
-          />
-        )}
-
         {currentView === 'inventory' && (
           <div className="overflow-x-auto">
             <ProductList products={products} onDelete={deleteProduct} />
@@ -222,15 +202,6 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
           <div className="overflow-x-auto">
             <InventoryHistory 
               logs={inventoryLogs}
-            />
-          </div>
-        )}
-
-        {currentView === 'customers' && (
-          <div className="overflow-x-auto">
-            <Customers 
-              customers={customers}
-              onCustomerClick={handleCustomerClick}
             />
           </div>
         )}
