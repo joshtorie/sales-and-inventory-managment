@@ -180,22 +180,30 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
         onExportData={exportData}
       />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 max-w-full overflow-x-auto">
         {currentView === 'inventory' && (
-          <ProductList products={products} onDelete={deleteProduct} />
+          <div className="overflow-x-auto">
+            <ProductList products={products} onDelete={deleteProduct} />
+          </div>
         )}
         
         {currentView === 'sales' && (
-          <SalesHistory
-            sales={sales}
-            onReturn={returnOrder}
-            onShare={shareOrder}
-            onDelete={deleteSalesOrder}
-          />
+          <div className="overflow-x-auto">
+            <SalesHistory 
+              sales={sales} 
+              onReturn={returnOrder} 
+              onShare={shareOrder}
+              onDelete={deleteSalesOrder}
+            />
+          </div>
         )}
         
         {currentView === 'inventory-history' && (
-          <InventoryHistory logs={inventoryLogs} />
+          <div className="overflow-x-auto">
+            <InventoryHistory 
+              logs={inventoryLogs}
+            />
+          </div>
         )}
       </main>
 
