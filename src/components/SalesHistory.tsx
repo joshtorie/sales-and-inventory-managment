@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Share2, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react';
+import { Share2, RotateCcw, ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
 import { SalesOrder } from '../types';
+import { Tooltip } from './Tooltip';
 
 interface SalesHistoryProps {
   sales: SalesOrder[];
   onReturn: (orderId: string) => void;
   onShare: (order: SalesOrder) => void;
+  onDelete: (orderId: string) => void;
 }
 
 export const SalesHistory: React.FC<SalesHistoryProps> = ({
   sales,
   onReturn,
   onShare,
+  onDelete,
 }) => {
   const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set());
 
@@ -86,22 +89,31 @@ export const SalesHistory: React.FC<SalesHistoryProps> = ({
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <div className="flex space-x-2">
-                    <button
-                      onClick={() => onShare(order)}
-                      className="text-gray-600 hover:text-gray-900"
-                      title="Share Order"
-                    >
-                      <Share2 className="w-5 h-5" />
-                    </button>
-                    {order.type === 'sale' && (
+                    <Tooltip content="Share Order">
+                      <button
+                        onClick={() => onShare(order)}
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        <Share2 className="w-5 h-5" />
+                      </button>
+                    </Tooltip>
+                    <Tooltip content="Return Order">
                       <button
                         onClick={() => onReturn(order.id)}
-                        className="text-gray-600 hover:text-gray-900"
-                        title="Return Order"
+                        className="text-blue-600 hover:text-blue-900"
+                        disabled={order.type === 'return'}
                       >
                         <RotateCcw className="w-5 h-5" />
                       </button>
-                    )}
+                    </Tooltip>
+                    <Tooltip content="Delete Order">
+                      <button
+                        onClick={() => onDelete(order.id)}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </Tooltip>
                   </div>
                 </td>
               </tr>
