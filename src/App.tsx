@@ -128,6 +128,30 @@ function App() {
     createOrder(order.storeName, returnItems);
   };
 
+  const deleteSalesOrder = (orderId: string) => {
+    const orderToDelete = sales.find(sale => sale.id === orderId);
+    if (!orderToDelete) return;
+
+    // Update products inventory
+    const updatedProducts = [...products];
+    orderToDelete.items.forEach(item => {
+      const product = updatedProducts.find(p => p.id === item.productId);
+      if (product) {
+        // If it was a sale, add the quantity back. If it was a return, subtract it
+        product.quantity += orderToDelete.type === 'sale' ? item.quantity : -item.quantity;
+      }
+    });
+
+    // Remove the order from sales
+    const updatedSales = sales.filter(sale => sale.id !== orderId);
+
+    // Update state and storage
+    setSales(updatedSales);
+    setProducts(updatedProducts);
+    storage.setSales(updatedSales);
+    storage.setProducts(updatedProducts);
+  };
+
   const shareOrder = (order: SalesOrder) => {
     const text = `Order Details:\n
 Store: ${order.storeName}
@@ -166,6 +190,7 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
             sales={sales}
             onReturn={returnOrder}
             onShare={shareOrder}
+            onDelete={deleteSalesOrder}
           />
         )}
         
