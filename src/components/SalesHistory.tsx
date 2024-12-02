@@ -87,8 +87,8 @@ export const SalesHistory: React.FC<SalesHistoryProps> = ({
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   ₪{order.total.toFixed(2)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <div className="flex space-x-2">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 overflow-visible">
+                  <div className="flex space-x-2 overflow-visible">
                     <Tooltip content="Share Order">
                       <button
                         onClick={() => onShare(order)}
