@@ -38,6 +38,9 @@ export const SalesHistory: React.FC<SalesHistoryProps> = ({
               Date
             </th>
             <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Customer
+            </th>
+            <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Store
             </th>
             <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -69,6 +72,9 @@ export const SalesHistory: React.FC<SalesHistoryProps> = ({
                 </td>
                 <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                   {new Date(order.date).toLocaleString()}
+                </td>
+                <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                  {order.customerName}
                 </td>
                 <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {order.storeName}
@@ -119,7 +125,7 @@ export const SalesHistory: React.FC<SalesHistoryProps> = ({
               </tr>
               {expandedOrders.has(order.id) && (
                 <tr>
-                  <td colSpan={6} className="px-2 sm:px-6 py-2 sm:py-4 bg-gray-50">
+                  <td colSpan={7} className="px-2 sm:px-6 py-2 sm:py-4 bg-gray-50">
                     <div className="overflow-x-auto">
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead>

@@ -9,6 +9,7 @@ export interface Product {
 export interface SalesOrder {
   id: string;
   date: string;
+  customerName: string;
   storeName: string;
   items: OrderItem[];
   type: 'sale' | 'return';
