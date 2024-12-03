@@ -7,7 +7,6 @@ interface HeaderProps {
   onViewDashboard: () => void;
   onViewInventory: () => void;
   onViewSales: () => void;
-  onViewInventoryHistory: () => void;
   onViewCustomers: () => void;
   onExportData: () => void;
 }
@@ -17,7 +16,6 @@ export const Header: React.FC<HeaderProps> = ({
   onViewDashboard,
   onViewInventory,
   onViewSales,
-  onViewInventoryHistory,
   onViewCustomers,
   onExportData,
 }) => {
@@ -57,14 +55,6 @@ export const Header: React.FC<HeaderProps> = ({
                 className="p-1 sm:p-2 text-gray-600 hover:text-gray-900"
               >
                 <History className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-            </Tooltip>
-            <Tooltip content="Inventory History">
-              <button
-                onClick={onViewInventoryHistory}
-                className="p-1 sm:p-2 text-gray-600 hover:text-gray-900"
-              >
-                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </Tooltip>
             <Tooltip content="Customers">

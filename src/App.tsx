@@ -185,7 +185,6 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
         onViewDashboard={() => setCurrentView('dashboard')}
         onViewInventory={() => setCurrentView('inventory')}
         onViewSales={() => setCurrentView('sales')}
-        onViewInventoryHistory={() => setCurrentView('inventory-history')}
         onViewCustomers={() => setCurrentView('customers')}
         onExportData={exportData}
       />
@@ -227,6 +226,7 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
           <div className="overflow-x-auto">
             <InventoryHistory 
               logs={inventoryLogs}
+              onViewInventory={() => setCurrentView('inventory')}
             />
           </div>
         )}
