@@ -194,9 +194,10 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
           <Dashboard
             recentSales={sales.slice(-3)}
             latestProducts={products.slice(-3)}
-            recentInventory={inventoryLogs.slice(-3)}
             recentCustomers={customers.slice(-3)}
-            onCustomerClick={handleCustomerClick}
+            onViewSales={() => setCurrentView('sales')}
+            onViewInventory={() => setCurrentView('inventory')}
+            onViewCustomers={() => setCurrentView('customers')}
           />
         )}
 
