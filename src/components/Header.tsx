@@ -1,11 +1,11 @@
 import React from 'react';
-import { LayoutDashboard, PlusCircle, ClipboardList, History, Database, Users, Download } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, History, Package, Users, Download } from 'lucide-react';
 import { Tooltip } from './Tooltip';
 
 interface HeaderProps {
   onCreateOrder: () => void;
-  onAddProduct: () => void;
   onViewDashboard: () => void;
+  onViewInventory: () => void;
   onViewSales: () => void;
   onViewInventoryHistory: () => void;
   onViewCustomers: () => void;
@@ -14,8 +14,8 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({
   onCreateOrder,
-  onAddProduct,
   onViewDashboard,
+  onViewInventory,
   onViewSales,
   onViewInventoryHistory,
   onViewCustomers,
@@ -43,12 +43,12 @@ export const Header: React.FC<HeaderProps> = ({
                 <ClipboardList className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </Tooltip>
-            <Tooltip content="Add Product">
+            <Tooltip content="Inventory">
               <button
-                onClick={onAddProduct}
+                onClick={onViewInventory}
                 className="p-1 sm:p-2 text-gray-600 hover:text-gray-900"
               >
-                <PlusCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </Tooltip>
             <Tooltip content="Sales History">
@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={onViewInventoryHistory}
                 className="p-1 sm:p-2 text-gray-600 hover:text-gray-900"
               >
-                <Database className="w-5 h-5 sm:w-6 sm:h-6" />
+                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </Tooltip>
             <Tooltip content="Customers">

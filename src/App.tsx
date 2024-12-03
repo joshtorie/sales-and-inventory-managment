@@ -182,8 +182,8 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
     <div className="min-h-screen bg-gray-100">
       <Header
         onCreateOrder={() => setShowCreateOrder(true)}
-        onAddProduct={() => setShowAddProduct(true)}
         onViewDashboard={() => setCurrentView('dashboard')}
+        onViewInventory={() => setCurrentView('inventory')}
         onViewSales={() => setCurrentView('sales')}
         onViewInventoryHistory={() => setCurrentView('inventory-history')}
         onViewCustomers={() => setCurrentView('customers')}
@@ -203,7 +203,12 @@ ${order.items.map(item => `- ${item.name}: ${item.quantity} x ₪${item.price.to
 
         {currentView === 'inventory' && (
           <div className="overflow-x-auto">
-            <ProductList products={products} onDelete={deleteProduct} />
+            <ProductList 
+              products={products} 
+              onDelete={deleteProduct}
+              onViewInventoryHistory={() => setCurrentView('inventory-history')}
+              onAddProduct={() => setShowAddProduct(true)}
+            />
           </div>
         )}
         
